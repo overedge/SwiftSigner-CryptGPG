@@ -1,11 +1,10 @@
 {
-    "name": "nightjar/swiftsigner-cryptgpg",
+    "name": "overedge/swiftsigner-cryptgpg",
     "description": "Signer for Swift Mailer - using PEAR's Crypt_GPG library for OpenPGP encryption or signing (or both) of outgoing emails.",
     "keywords": ["swiftmailer", "email", "encryption", "signing"],
     "type": "library",
     "require": {
         "swiftmailer/swiftmailer": "^4.3 || ^5 || ^6",
-        "pear/crypt_gpg": "^1.6"
     },
     "license": "MIT",
     "authors": [
