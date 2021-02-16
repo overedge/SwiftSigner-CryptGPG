@@ -1,8 +1,8 @@
 <?php
 
-namespace Nightjar;
+namespace Overedge;
 
-use Crypt_GPG;
+use gnupg;
 use Swift_Attachment;
 use Swift_DependencyContainer;
 use Swift_Message;
@@ -28,18 +28,14 @@ class SwiftSignerCryptGPG implements Swift_Signers_BodySigner
      * Constructor.
      *
      * @param string $encryptKey
-     * @param string $signKey
-     * @param string $passphrase
-     * @param array $options
      */
-    public function __construct(string $encryptKey, string $signKey = '', string $passphrase = '', array $options = [])
+    public function __construct(string $encryptKey)
     {
-        $gpg = new Crypt_GPG($options);
-        $gpg->addEncryptKey($encryptKey);
-        if ($signKey) {
-            $gpg->addSignKey($signKey, $passphrase ?: null);
-            $this->sign = true;
-        }
+        $gpg = new gnupg();
+        $gpg->seterrormode(gnupg::ERROR_EXCEPTION);
+        $info = $gpg->import($encryptKey);
+        $gpg->addencryptkey($info['fingerprint']);
+        $this->sign = false;
         $this->gpg = $gpg;
     }
 
